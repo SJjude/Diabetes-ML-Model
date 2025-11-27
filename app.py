@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify 
 import pandas as pd
 import joblib
+import os
+
 app = Flask(__name__)
 
 # Load the retrained model
@@ -24,5 +26,7 @@ def predict():
         'probability_no_diabetes': float(prediction_proba[0][0]),
         'probability_diabetes': float(prediction_proba[0][1])
     })
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use cloud platform port or default to 5000
+    app.run(host="0.0.0.0", port=port, debug=True)
