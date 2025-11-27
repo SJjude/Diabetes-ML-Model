@@ -1,7 +1,13 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-
+import joblib
 app = Flask(__name__)
+
+# Load the retrained model
+model_api = joblib.load('logistic_regression_model.joblib')
+
+# Load the scaler
+scaler_api = joblib.load('scaler.joblib')
 
 @app.route('/predict', methods=['POST'])
 def predict():
